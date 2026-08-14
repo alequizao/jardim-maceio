@@ -1,0 +1,15 @@
+# Transparência Jardim Maceió - Apache config
+
+# Bloquear acesso direto a config e includes
+<FilesMatch "\.(env|log|sql)$">
+    Require all denied
+</FilesMatch>
+
+# DirectoryIndex
+DirectoryIndex index.php index.html
+
+# Charset
+AddDefaultCharset UTF-8
+
+# Negar listagem de pastas
+Options -Indexes

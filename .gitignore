@@ -1,0 +1,33 @@
+# --- Credenciais ---
+config/config.php
+config.php
+credenciais.txt
+.env
+.env.*
+!.env.example
+
+# --- DADOS PESSOAIS DE MORADORES (LGPD) ---
+planilha moradores/
+uploads/
+*.sql
+
+# --- Dependencias ---
+vendor/
+node_modules/
+
+# --- Logs e temporarios ---
+*.log
+logs/
+cache/
+tmp/
+*.bak
+*.bak-*
+*.tar.gz
+*.zip
+
+# --- Sistema ---
+.DS_Store
+Thumbs.db
+
+# Proposta comercial com valores contratados
+proposta.html
