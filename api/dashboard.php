@@ -1,4 +1,8 @@
 <?php
+/*
+ * Jardim Maceió · Desenvolvido por Alequizao <alequizao.dev@gmail.com>
+ * https://github.com/alequizao · © 2026 Alequizao. Todos os direitos reservados.
+ */
 /**
  * /api/dashboard.php
  * Endpoints de agregação financeira do Dashboard.

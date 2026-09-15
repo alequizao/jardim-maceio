@@ -1,4 +1,8 @@
 <?php
+/*
+ * Jardim Maceió · Desenvolvido por Alequizao <alequizao.dev@gmail.com>
+ * https://github.com/alequizao · © 2026 Alequizao. Todos os direitos reservados.
+ */
 /**
  * /api/notas-fiscais.php
  * CRUD de notas fiscais com upload de arquivo (PDF/imagem/XML)

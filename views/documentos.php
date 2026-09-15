@@ -1,4 +1,8 @@
 <?php
+/*
+ * Jardim Maceió · Desenvolvido por Alequizao <alequizao.dev@gmail.com>
+ * https://github.com/alequizao · © 2026 Alequizao. Todos os direitos reservados.
+ */
 $paginaTitulo    = 'Documentos';
 $paginaSubtitulo = 'Repositório de balancetes, atas, convenções e relatórios';
 $paginaAtiva     = 'documentos';

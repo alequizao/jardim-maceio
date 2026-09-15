@@ -1,4 +1,8 @@
 <?php
+/*
+ * Jardim Maceió · Desenvolvido por Alequizao <alequizao.dev@gmail.com>
+ * https://github.com/alequizao · © 2026 Alequizao. Todos os direitos reservados.
+ */
 $paginaTitulo    = 'Fluxo de Caixa';
 $paginaSubtitulo = 'Extrato completo de entradas e saídas';
 $paginaAtiva     = 'fluxo';
