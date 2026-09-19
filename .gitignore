@@ -31,3 +31,4 @@ Thumbs.db
 
 # Proposta comercial com valores contratados
 proposta.html
+config/smtp.php

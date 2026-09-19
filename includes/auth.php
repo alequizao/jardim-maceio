@@ -9,6 +9,7 @@
  */
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/visibilidade.php';
 
 class Auth
 {
@@ -75,6 +76,7 @@ class Auth
             header('Location: ' . BASE_URL . '/views/login.php?redirect=' . urlencode($redirect));
             exit;
         }
+        Vis::exigirArquivo(false);
     }
 
     public static function exigirLoginApi(): array
@@ -82,7 +84,28 @@ class Auth
         if (!self::logado()) {
             jsonResposta(['erro' => 'Não autenticado'], 401);
         }
+        Vis::exigirArquivo(true);
+        self::idempotencia();
         return self::usuario();
+    }
+
+    /**
+     * Envios da fila offline trazem X-JM-Idem (id único por alteração).
+     * Se a mesma alteração chegar de novo (resposta perdida na volta da rede),
+     * não grava duas vezes.
+     */
+    private static function idempotencia(): void
+    {
+        $k = $_SERVER['HTTP_X_JM_IDEM'] ?? '';
+        if ($k === '' || !preg_match('/^[a-zA-Z0-9-]{8,64}$/', $k)) return;
+        $pdo = Database::conectar();
+        $pdo->exec("CREATE TABLE IF NOT EXISTS offline_envios (chave VARCHAR(64) PRIMARY KEY, criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+        try {
+            $pdo->prepare("INSERT INTO offline_envios (chave) VALUES (?)")->execute([$k]);
+        } catch (PDOException $e) {
+            jsonResposta(['ok' => true, 'duplicado' => true]);
+        }
+        if (mt_rand(1, 50) === 1) $pdo->exec("DELETE FROM offline_envios WHERE criado_em < NOW() - INTERVAL 30 DAY");
     }
 
     public static function exigirPerfil(array $perfis): void

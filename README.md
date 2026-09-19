@@ -124,6 +124,20 @@ jardim_maceio/
 | **Documentos** | Repositório de balancetes, atas, convenções |
 | **Moradores** | Cadastro por bloco/apartamento, proprietário/inquilino |
 | **Configurações** | Categorias, fornecedores, usuários (admin/síndico/morador) |
+| **Assembleia** | Convocação, pautas, votação online e atas |
+| **Visibilidade** | O administrador escolhe, módulo a módulo, o que os condôminos veem; o menu de quem está conectado se ajusta sozinho (AJAX) |
+| **Notificações** | Contas vencidas, recebimentos em atraso e avisos no sino; cada usuário limpa as suas (item a item ou tudo) |
+
+---
+
+## 📱 Aplicativo (PWA)
+
+- Instalável no celular e no computador (`manifest.webmanifest`, `sw.js`, ícones em `assets/icons/`)
+- Tutorial ilustrado para instalar pelo Safari no iPhone/iPad (iOS 26 e anteriores) — `assets/js/pwa.js`
+- **Offline:** telas e dados já vistos continuam disponíveis; cadastros, edições e exclusões feitos sem conexão ficam numa fila no aparelho e são enviados sozinhos quando a conexão volta (com chave de idempotência `X-JM-Idem` — nunca grava em dobro)
+- Status real no topo: *Ao vivo*, *Sem internet*, *Servidor fora*, *Entre de novo* (sessão expirada) e quantas alterações estão pendentes
+- **Atualização forçada:** ao publicar qualquer arquivo novo, todas as abas abertas recarregam sozinhas (esperam se houver um formulário sendo preenchido)
+- Visual premium minimalista, com tabelas que viram cartões e barra de atalhos no celular; zoom desativado
 
 ---
 

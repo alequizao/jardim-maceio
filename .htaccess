@@ -13,3 +13,9 @@ AddDefaultCharset UTF-8
 
 # Negar listagem de pastas
 Options -Indexes
+
+<Files sw.js>
+  Header set Service-Worker-Allowed "/jardimmaceio/"
+  Header set Cache-Control "no-cache"
+</Files>
+AddType application/manifest+json .webmanifest

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!--
+  Jardim Maceió · Desenvolvido por Alequizao <alequizao.dev@gmail.com>
+  https://github.com/alequizao · © 2026 Alequizao. Todos os direitos reservados.
+-->
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0F7B3E"><title>Sem conexão · Jardim Maceió</title>
+<style>
+:root{--bg:#F6F7F9;--card:#fff;--tx:#1F2937;--mut:#6B7280}
+@media (prefers-color-scheme:dark){:root{--bg:#111827;--card:#1F2937;--tx:#F3F4F6;--mut:#9CA3AF}}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;padding:16px;box-sizing:border-box}
+.c{background:var(--card);border-radius:18px;padding:32px 24px;max-width:380px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+img{width:72px;height:72px;border-radius:16px}h1{font-size:20px;margin:16px 0 8px}p{color:var(--mut);line-height:1.5;margin:0 0 20px}
+button{background:#0F7B3E;color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
+</style></head><body><div class="c">
+<img src="assets/icons/icon-192.png" alt="">
+<h1>Você está sem conexão</h1>
+<p>Assim que a internet voltar, os dados do condomínio serão atualizados automaticamente.</p>
+<button onclick="location.reload()">Tentar novamente</button>
+</div><script>addEventListener('online',()=>location.reload())</script></body></html>

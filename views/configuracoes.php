@@ -104,6 +104,38 @@ $usuarioAtual = Auth::usuario();
 </div>
 <?php endif; ?>
 
+<!-- VISIBILIDADE PARA CONDÔMINOS -->
+<?php if (Vis::ehAdmin()): ?>
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">O QUE OS CONDÔMINOS PODEM VER</span>
+    <span class="muted" style="font-size:12px;">Ao marcar/desmarcar, o menu de todos atualiza sozinho em segundos</span>
+  </div>
+  <div class="vis-lista" id="visLista"><span class="muted">Carregando…</span></div>
+</div>
+<script>
+(function(){
+  const box = document.getElementById('visLista');
+  function desenhar(cfg){
+    box.innerHTML = cfg.map(function(c){
+      return '<label class="vis-item'+(c.liberado?' on':'')+'">'
+        + '<div><div class="vn">'+c.nome+'</div><div class="vs">'+(c.liberado?'Liberado para todos':'Somente administradores')+'</div></div>'
+        + '<span class="sw"><input type="checkbox" data-m="'+c.modulo+'"'+(c.liberado?' checked':'')+'><span></span></span></label>';
+    }).join('');
+  }
+  box.addEventListener('change', async function(ev){
+    const i = ev.target; if (!i.dataset.m) return;
+    i.disabled = true;
+    const d = await App.api('visibilidade.php', {method:'POST', body:{modulo:i.dataset.m, liberado:i.checked}});
+    if (d && d.ok) { desenhar(d.config); App.toast((i.checked?'Liberado: ':'Bloqueado: ') + i.closest('.vis-item').querySelector('.vn').textContent); }
+    else { i.checked = !i.checked; i.disabled = false; App.toast((d && d.erro) || 'Falha ao salvar.'); }
+  });
+  document.addEventListener('jm:visibilidade', function(e){ if (e.detail.config && !box.contains(document.activeElement)) desenhar(e.detail.config); });
+  App.api('visibilidade.php').then(function(d){ if (d && d.config) desenhar(d.config); });
+})();
+</script>
+<?php endif; ?>
+
 <!-- USUÁRIOS -->
 <?php if ($usuarioAtual['tipo'] === 'admin'): ?>
 <div class="card">

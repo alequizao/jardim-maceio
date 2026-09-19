@@ -19,8 +19,11 @@ $sql = "SELECT id, nome, cpf, telefone, email, bloco, apartamento, proprietario
         FROM moradores WHERE ativo=1";
 $par = [];
 if ($busca !== '') {
-    $sql .= " AND (nome LIKE :q OR bloco LIKE :q OR apartamento LIKE :q OR cpf LIKE :q OR email LIKE :q)";
-    $par[':q'] = '%'.$busca.'%';
+    // O PDO deste sistema roda sem emulacao de prepare: o mesmo placeholder
+    // nao pode se repetir na consulta, por isso :q1..:q5.
+    $sql .= " AND (nome LIKE :q1 OR bloco LIKE :q2 OR apartamento LIKE :q3 OR cpf LIKE :q4 OR email LIKE :q5)";
+    $like = '%'.$busca.'%';
+    foreach (['q1','q2','q3','q4','q5'] as $ph) { $par[':'.$ph] = $like; }
 }
 $sql .= " ORDER BY LENGTH(bloco), bloco, LENGTH(apartamento), apartamento, nome";
 $stmt = $pdo->prepare($sql); $stmt->execute($par);

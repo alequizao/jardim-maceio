@@ -79,7 +79,14 @@ $totInad       = $tot("SELECT COALESCE(SUM(valor),0) FROM receitas WHERE status=
 
 $pRecebido = $totReceberMes > 0 ? round(($totRecebido/$totReceberMes)*100, 1) : 0;
 $pAberto   = $totReceberMes > 0 ? round(($totEmAberto/$totReceberMes)*100, 1) : 0;
-$pInad     = $totReceberMes > 0 ? round(($totInad/$totReceberMes)*100, 1)     : 0;
+// A inadimplencia e acumulada (todos os meses vencidos), entao a base de calculo
+// tem de ser o total lancado ate hoje - senao a barra passa de 100% e estoura o layout.
+$totLancadoAteHoje = $tot("SELECT COALESCE(SUM(valor),0) FROM receitas WHERE data_competencia <= CURDATE()");
+$pInad     = $totLancadoAteHoje > 0 ? round(($totInad/$totLancadoAteHoje)*100, 1) : 0;
+// trava de seguranca: nenhuma barra passa de 100%
+$pRecebido = min(100, max(0, $pRecebido));
+$pAberto   = min(100, max(0, $pAberto));
+$pInad     = min(100, max(0, $pInad));
 ?>
 
 <!-- ============== KPIs ============== -->
@@ -340,7 +347,7 @@ $pInad     = $totReceberMes > 0 ? round(($totInad/$totReceberMes)*100, 1)     : 
     <span class="ic amarelo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18"/><path d="M5 9h14"/><path d="M5 9l-2 6h4z"/><path d="M19 9l-2 6h4z"/></svg></span>
     Balancete Mensal
   </a>
-  <a href="<?= BASE_URL ?>/api/relatorios.php?acao=balancete&mes=<?= date('Y-m') ?>&export=pdf" class="action-btn">
+  <a href="<?= BASE_URL ?>/views/balancete.php?mes=<?= date('Y-m') ?>&imprimir=1" class="action-btn">
     <span class="ic cinza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
     Exportar PDF
   </a>

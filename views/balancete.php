@@ -51,6 +51,9 @@ $saldoFim = $saldoAnt + $totRec - $totDes;
       <input type="month" name="mes" value="<?= e($mes) ?>" class="form-control" style="padding:6px 10px;">
       <button class="btn btn-outline">Atualizar</button>
       <button type="button" class="btn btn-primary" onclick="window.print()">Imprimir / PDF</button>
+      <?php if (!empty($_GET['imprimir'])): ?>
+      <script>window.addEventListener('load', function(){ setTimeout(function(){ window.print(); }, 500); });</script>
+      <?php endif; ?>
     </form>
   </div>
 

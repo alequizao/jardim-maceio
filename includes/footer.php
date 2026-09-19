@@ -12,7 +12,6 @@
   </main>
 </div>
 
-<script src="<?= BASE_URL ?>/assets/js/app.js?v=<?= @filemtime(__DIR__ . '/../assets/js/app.js') ?: time() ?>"></script>
 <?php if (!empty($scriptPagina)): ?>
 <script src="<?= BASE_URL ?>/assets/js/<?= e($scriptPagina) ?>?v=<?= @filemtime(__DIR__ . '/../assets/js/' . $scriptPagina) ?: time() ?>"></script>
 <?php endif; ?>
